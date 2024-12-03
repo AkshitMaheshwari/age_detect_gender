@@ -44,12 +44,19 @@ genderNet = cv2.dnn.readNet(genderModel, genderProto)
 # Streamlit UI
 st.title("Age and Gender Detection")
 
-# Choose detection mode
-mode = st.sidebar.selectbox("Choose a mode", ("Real-Time Detection", "Image Upload"))
+# Detection Modes
+st.write("Choose a mode below:")
 
-if mode == "Real-Time Detection":
-    run = st.checkbox('Start Detection')
-    quit_app = st.button('Quit')
+col1, col2 = st.columns(2)
+with col1:
+    run_detection = st.checkbox('Real-Time Camera Detection')
+with col2:
+    browse_image = st.button('Browse Image')
+
+if run_detection:
+    st.write("Camera detection works only on local devices.")
+    run = st.checkbox('Start Detection', key="start_camera")
+    quit_app = st.button('Quit Detection')
 
     if run:
         cap = cv2.VideoCapture(0)
@@ -89,7 +96,7 @@ if mode == "Real-Time Detection":
         cap.release()
         st.write("Detection stopped.")
 
-elif mode == "Image Upload":
+if browse_image:
     uploaded_file = st.file_uploader("Upload an Image", type=["jpg", "jpeg", "png"])
 
     if uploaded_file is not None:
@@ -118,4 +125,4 @@ elif mode == "Image Upload":
 
         st.image(cv2.cvtColor(resultImg, cv2.COLOR_BGR2RGB), channels="RGB", caption="Processed Image")
 
-st.write("Select a mode from the sidebar to start.")
+st.write("Choose a mode above to start.")
