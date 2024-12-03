@@ -1,5 +1,5 @@
 # Use the official Python 3.12 image from Docker Hub
-FROM python:3.12-alpine
+FROM python:3.12
 
 # Set the working directory in the container
 WORKDIR /app
