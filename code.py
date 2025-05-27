@@ -24,7 +24,7 @@ def highlightFace(net, frame, conf_threshold=0.7):
     return frameOpencvDnn, faceBoxes
 
 
-# Model files
+
 faceProto = "opencv_face_detector.pbtxt"
 faceModel = "opencv_face_detector_uint8.pb"
 ageProto = "age_deploy.prototxt"
@@ -36,15 +36,14 @@ MODEL_MEAN_VALUES = (78.4263377603, 87.7689143744, 114.895847746)
 ageList = ['(0-2)', '(4-6)', '(8-12)', '(15-20)', '(25-32)', '(38-43)', '(48-53)', '(60-100)']
 genderList = ['Male', 'Female']
 
-# Load networks
+
 faceNet = cv2.dnn.readNet(faceModel, faceProto)
 ageNet = cv2.dnn.readNet(ageModel, ageProto)
 genderNet = cv2.dnn.readNet(genderModel, genderProto)
 
-# Streamlit UI
+
 st.title("Age and Gender Detection")
 
-# Choose detection mode
 mode = st.sidebar.selectbox("Choose a mode", ("Real-Time Detection", "Image Upload"))
 
 if mode == "Real-Time Detection":
